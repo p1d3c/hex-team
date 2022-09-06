@@ -16,7 +16,7 @@ function App() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       setLoggedIn(true);
-      navigate('/');
+      navigate('../', {replace: true});
     }
   }
 
@@ -25,7 +25,7 @@ function App() {
       .register(inputValues.username, inputValues.password)
       .then((res) => {
         if (res) {
-          navigate('/signin');
+          navigate('../signin', {replace: true});
           setInputValues({
             username: '',
             password: '',
@@ -41,7 +41,6 @@ function App() {
     auth
       .login(inputValues.username, inputValues.password)
       .then((data) => {
-        console.log(data);
         if (data.access_token) {
           localStorage.setItem('jwt', data.access_token);
           return data;
@@ -53,8 +52,7 @@ function App() {
           password: '',
         });
         setLoggedIn(true);
-        console.log('loggedIn true');
-        navigate('/');
+        navigate('../', {replace: true});
       })
       .catch((err) => {
         console.log(err);
@@ -63,8 +61,8 @@ function App() {
 
   function handleSignOut() {
     localStorage.removeItem('jwt');
-    navigate('/signin');
     setLoggedIn(false);
+    navigate('../signin', {replace: true});
   }
 
   useEffect(() => {
@@ -76,8 +74,8 @@ function App() {
     <div className='page'>
       <Header loggedIn={loggedIn} handleSignOut={handleSignOut} />
       <Routes>
-        <Route path='/signup' element={<Register handleRegister={handleRegister} />} />
-        <Route path='/signin' element={<Login handleLogin={handleLogin} />} />
+        <Route path='/signup' element={<Register handleRegister={handleRegister} loggedIn={loggedIn} />} />
+        <Route path='/signin' element={<Login handleLogin={handleLogin} loggedIn={loggedIn} />} />
         <Route
           path='/'
           element={

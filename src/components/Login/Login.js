@@ -1,8 +1,10 @@
 import './Login.css';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 function Login(props) {
   const [inputValues, setInputValues] = useState({username: '', password: ''});
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputValues({
@@ -16,6 +18,12 @@ function Login(props) {
     props.handleLogin(inputValues, setInputValues);
   };
 
+  useEffect(() => {
+    if (props.loggedIn) {
+      navigate('../', {replace: true});
+    }
+  });
+
   return (
     <>
       <h2 className='auth__title'>Вход</h2>
@@ -25,7 +33,7 @@ function Login(props) {
             <input
               id='email-input'
               type='text'
-              className='auth__input auth__input_type_email'
+              className='auth__input auth__input_type_username'
               value={inputValues.username}
               onChange={handleChange}
               name='username'
@@ -34,7 +42,6 @@ function Login(props) {
               maxLength='40'
               required
             />
-            <span className='auth__input-error email-input-error'></span>
           </label>
           <label className='auth__form-field'>
             <input
@@ -49,7 +56,6 @@ function Login(props) {
               maxLength='200'
               required
             />
-            <span className='auth__input-error password-input-error'></span>
           </label>
           <button type='submit' className='auth__submit' name={`auth-submit`}>
             Войти

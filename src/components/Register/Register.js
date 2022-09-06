@@ -1,9 +1,10 @@
 import './Register';
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 
 function Register(props) {
   const [inputValues, setInputValues] = useState({username: '', password: ''});
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputValues({
@@ -17,6 +18,12 @@ function Register(props) {
     props.handleRegister(inputValues, setInputValues);
   };
 
+  useEffect(() => {
+    if (props.loggedIn) {
+      navigate('../', {replace: true});
+    }
+  });
+
   return (
     <>
       <h2 className='auth__title'>Регистрация</h2>
@@ -26,7 +33,7 @@ function Register(props) {
             <input
               id='email-input'
               type='text'
-              className='auth__input auth__input_type_email'
+              className='auth__input auth__input_type_username'
               value={inputValues.username}
               onChange={handleChange}
               name='username'
@@ -35,7 +42,6 @@ function Register(props) {
               maxLength='40'
               required
             />
-            <span className='auth__input-error email-input-error'></span>
           </label>
           <label className='auth__form-field'>
             <input
@@ -50,7 +56,6 @@ function Register(props) {
               maxLength='200'
               required
             />
-            <span className='auth__input-error password-input-error'></span>
           </label>
           <button type='submit' className='auth__submit' name='auth-submit'>
             Зарегистрироваться

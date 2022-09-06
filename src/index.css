@@ -32,7 +32,7 @@ html {
 @import url(./blocks/auth/__form-set/auth__form-set.css);
 @import url(./blocks/auth/__form-field/auth__form-field.css);
 @import url(./blocks/auth/__input/auth__input.css);
-@import url(./blocks/auth/__input/_type/_email/auth__input_type_email.css);
+@import url(./blocks/auth/__input/_type/_username/auth__input_type_username.css);
 @import url(./blocks/auth/__submit/auth__submit.css);
 @import url(./blocks/auth/__login/auth__login.css);
 @import url(./blocks/auth/__login-btn/auth__login-btn.css);
