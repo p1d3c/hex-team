@@ -36,3 +36,22 @@ export const login = (username, password) => {
     }
   });
 };
+
+export const getStatistics = (offset = 0, limit = 5) => {
+  return fetch(`${BASE_URL}/statistics?offset=${offset}&limit=${limit}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    },
+  }).then((res) => {
+    try {
+      if (res.ok) {
+        return res.json();
+      }
+    } catch (err) {
+      return err;
+    }
+  });
+};

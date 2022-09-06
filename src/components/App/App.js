@@ -6,10 +6,11 @@ import Header from '../Header/Header';
 import {useEffect, useState} from 'react';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
-import * as auth from '../../utils/auth';
+import * as api from '../../utils/Api';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [statistics, setStatistics] = useState([]);
   const navigate = useNavigate();
 
   function tokenCheck() {
@@ -21,7 +22,7 @@ function App() {
   }
 
   function handleRegister(inputValues, setInputValues) {
-    auth
+    api
       .register(inputValues.username, inputValues.password)
       .then((res) => {
         if (res) {
@@ -38,7 +39,7 @@ function App() {
   }
 
   function handleLogin(inputValues, setInputValues) {
-    auth
+    api
       .login(inputValues.username, inputValues.password)
       .then((data) => {
         if (data.access_token) {
@@ -70,6 +71,22 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (!loggedIn) {
+      return;
+    }
+
+    api
+      .getStatistics(0, 5)
+      .then((res) => {
+        console.log(res);
+        setStatistics(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [loggedIn]);
+
   return (
     <div className='page'>
       <Header loggedIn={loggedIn} handleSignOut={handleSignOut} />
@@ -80,7 +97,7 @@ function App() {
           path='/'
           element={
             <ProtectedRoute loggedIn={loggedIn} redirectTo='/signin'>
-              <Main />
+              <Main statistics={statistics} />
             </ProtectedRoute>
           }
         />
