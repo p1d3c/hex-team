@@ -1,14 +1,19 @@
 .main {
-  height: 100%;
   width: 100%;
   max-width: 918px;
   margin: 0 auto;
+  flex-grow: 1;
+}
+
+.main__title {
+  margin-top: 0;
 }
 
 .main__form {
   position: relative;
 
   display: flex;
+  justify-content: space-between;
 }
 
 .main__input {
@@ -32,7 +37,7 @@
   display: block;
   width: 80px;
   height: 30px;
-  margin: auto auto auto 5px;
+  margin: auto 0 auto 5px;
 
   color: white;
   font-size: 14px;
@@ -69,10 +74,26 @@
   font-weight: 700;
 }
 
+.main__wrap {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 10px;
+  margin: 40px 10px 5px;
+}
+
 .main__list {
   padding: 0;
-  margin: 60px auto 0;
+  margin: 0 auto;
   list-style-type: none;
+}
+
+.main__list-title {
+  display: flex;
+  align-items: center;
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: normal;
 }
 
 .main__list-item {
@@ -81,7 +102,7 @@
 }
 
 @media screen and (max-width: 920px) {
-  .main__form {
-    margin: 0 10px;
+  .main {
+    padding: 0 10px;
   }
 }

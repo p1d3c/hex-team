@@ -25,7 +25,7 @@ function Login(props) {
   });
 
   return (
-    <>
+    <main className='auth'>
       <h2 className='auth__title'>Вход</h2>
       <form className='auth__form' onSubmit={handleSubmit}>
         <fieldset className='auth__form-set'>
@@ -57,12 +57,12 @@ function Login(props) {
               required
             />
           </label>
-          <button type='submit' className='auth__submit' name={`auth-submit`}>
+          <button type='submit' className='auth__submit auth__submit_login' name={`auth-submit`}>
             Войти
           </button>
         </fieldset>
       </form>
-    </>
+    </main>
   );
 }
 

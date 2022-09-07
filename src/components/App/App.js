@@ -7,10 +7,19 @@ import {useEffect, useState} from 'react';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import * as api from '../../utils/Api';
+import Footer from '../Footer/Footer';
+import Loader from '../Loader/Loader';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [statistics, setStatistics] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [shortLinkData, setShortLinkData] = useState({
+    id: '',
+    short: '',
+    target: '',
+    counter: '',
+  });
   const navigate = useNavigate();
 
   function tokenCheck() {
@@ -25,6 +34,7 @@ function App() {
     api
       .register(inputValues.username, inputValues.password)
       .then((res) => {
+        setIsLoading(true);
         if (res) {
           navigate('../signin', {replace: true});
           setInputValues({
@@ -32,6 +42,9 @@ function App() {
             password: '',
           });
         }
+      })
+      .then(() => {
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -66,6 +79,32 @@ function App() {
     navigate('../signin', {replace: true});
   }
 
+  function handleAddStatistics() {
+    if (!loggedIn) {
+      return;
+    }
+
+    const offset = statistics.length + 1;
+    const limit = 40;
+    api
+      .getStatistics(offset, limit)
+      .then((res) => {
+        setStatistics((prev) => {
+          return prev.concat(res);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleSqueeze(link) {
+    api.squeeze(link).then((res) => {
+      console.log(res);
+      setShortLinkData(res);
+    });
+  }
+
   useEffect(() => {
     tokenCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,10 +116,13 @@ function App() {
     }
 
     api
-      .getStatistics(0, 5)
+      .getStatistics(0, 40)
       .then((res) => {
-        console.log(res);
+        setIsLoading(true);
         setStatistics(res);
+      })
+      .then(() => {
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -88,7 +130,7 @@ function App() {
   }, [loggedIn]);
 
   return (
-    <div className='page'>
+    <>
       <Header loggedIn={loggedIn} handleSignOut={handleSignOut} />
       <Routes>
         <Route path='/signup' element={<Register handleRegister={handleRegister} loggedIn={loggedIn} />} />
@@ -97,12 +139,19 @@ function App() {
           path='/'
           element={
             <ProtectedRoute loggedIn={loggedIn} redirectTo='/signin'>
-              <Main statistics={statistics} />
+              <Main
+                statistics={statistics}
+                handleAddStatistics={handleAddStatistics}
+                handleSqueeze={handleSqueeze}
+                shortLinkData={shortLinkData}
+              />
             </ProtectedRoute>
           }
         />
       </Routes>
-    </div>
+      <Loader isLoading={isLoading} />
+      <Footer />
+    </>
   );
 }
 

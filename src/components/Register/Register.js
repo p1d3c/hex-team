@@ -25,7 +25,7 @@ function Register(props) {
   });
 
   return (
-    <>
+    <main className='auth'>
       <h2 className='auth__title'>Регистрация</h2>
       <form className='auth__form' onSubmit={handleSubmit}>
         <fieldset className='auth__form-set'>
@@ -68,7 +68,7 @@ function Register(props) {
           Войти
         </Link>
       </p>
-    </>
+    </main>
   );
 }
 

@@ -1,29 +1,30 @@
 import './Main.css';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import ListRow from '../ListRow/ListRow';
+import TableComponent from '../TableComponent/TableComponent';
 
 function Main(props) {
-  const {statistics} = props;
-
   const validationSchema = yup.object().shape({
     link: yup.string().url('Некорректный URL').required('Обязательное поле'),
   });
 
   return (
-    <section className='main'>
+    <main className='main'>
+      <h1 className='main__title'>Сократить ссылку</h1>
       <Formik
         initialValues={{
           link: '',
         }}
         validateOnBlur
         validateOnChange
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {
+          props.handleSqueeze(values.link);
+        }}
         validationSchema={validationSchema}
       >
         {({values, errors, touched, handleChange, handleBlur, handleSubmit, isValid}) => {
           return (
-            <div className='main__form'>
+            <form className='main__form'>
               <input
                 className='main__input'
                 type='text'
@@ -33,24 +34,20 @@ function Main(props) {
                 value={values.link}
               />
               {touched.link && errors.link && <span className='main__error'>{errors.link}</span>}
-              <button className='main__button' disabled={!isValid} onClick={handleSubmit} type='submit'>
+              <button type='submit' className='main__button' disabled={!isValid} onClick={handleSubmit}>
                 Сократить
               </button>
-            </div>
+            </form>
           );
         }}
       </Formik>
 
-      <ol className='main__list'>
-        {statistics.map((item, index) => {
-          return (
-            <li className='main__list-item' key={index}>
-              <ListRow item={item} />
-            </li>
-          );
-        })}
-      </ol>
-    </section>
+      <div className='main__result'>
+        <h2 className='main__subtitle'>Результат:</h2>
+        <h3 className='main__container'>{props.shortLinkData.short}</h3>
+      </div>
+      <TableComponent statistics={props.statistics} handleAddStatistics={props.handleAddStatistics} />
+    </main>
   );
 }
 

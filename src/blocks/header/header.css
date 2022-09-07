@@ -1,9 +1,9 @@
 .header {
-  height: 119px;
+  height: 80px;
   max-width: 918px;
   box-sizing: border-box;
   padding: 0 19px;
-  margin: 0 auto 37px auto;
+  margin: 0 auto 25px auto;
   padding-top: 45px;
   border-bottom: solid 1px #545454;
   display: flex;

@@ -37,7 +37,7 @@ export const login = (username, password) => {
   });
 };
 
-export const getStatistics = (offset = 0, limit = 5) => {
+export const getStatistics = (offset, limit) => {
   return fetch(`${BASE_URL}/statistics?offset=${offset}&limit=${limit}`, {
     method: 'GET',
     headers: {
@@ -45,6 +45,26 @@ export const getStatistics = (offset = 0, limit = 5) => {
       'Content-Type': 'application/json',
       authorization: `Bearer ${localStorage.getItem('jwt')}`,
     },
+  }).then((res) => {
+    try {
+      if (res.ok) {
+        return res.json();
+      }
+    } catch (err) {
+      return err;
+    }
+  });
+};
+
+export const squeeze = (link) => {
+  return fetch(`${BASE_URL}/squeeze?link=${link}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    },
+    body: new URLSearchParams({link}),
   }).then((res) => {
     try {
       if (res.ok) {

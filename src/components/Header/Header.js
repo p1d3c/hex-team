@@ -14,11 +14,9 @@ function Header(props) {
   return (
     <header className='header'>
       {props.loggedIn ? (
-        <div className='header__container'>
-          <button className='header__quit' onClick={signOut}>
-            Выход
-          </button>
-        </div>
+        <button className='header__quit' onClick={signOut}>
+          Выход
+        </button>
       ) : (
         <Link className='header__path' to={linkTo}>
           {location.pathname === '/signup' ? 'Войти' : 'Регистрация'}

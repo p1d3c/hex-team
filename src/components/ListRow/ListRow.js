@@ -7,12 +7,12 @@ function ListRow(props) {
     <div className='row'>
       <ol className='row__list'>
         <li className='row__list-item'>
-          <a className='row__link' href={`http://79.143.31.216/s/${item.short}`} target='_blank'>
+          <a className='row__link' href={`http://79.143.31.216/s/${item.short}`} target='_blank' rel='noreferrer'>
             {item.short}
           </a>
         </li>
         <li className='row__list-item'>
-          <a className='row__link' href={item.target} target='_blank'>
+          <a className='row__link' href={item.target} target='_blank' rel='noreferrer'>
             {item.target}
           </a>
         </li>
