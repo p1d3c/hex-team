@@ -13,7 +13,7 @@ import Loader from '../Loader/Loader';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [statistics, setStatistics] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [shortLinkData, setShortLinkData] = useState({
     id: '',
     short: '',
@@ -31,10 +31,11 @@ function App() {
   }
 
   function handleRegister(inputValues, setInputValues) {
+    setIsLoading(true);
+
     api
       .register(inputValues.username, inputValues.password)
       .then((res) => {
-        setIsLoading(true);
         if (res) {
           navigate('../signin', {replace: true});
           setInputValues({
@@ -43,11 +44,11 @@ function App() {
           });
         }
       })
-      .then(() => {
-        setIsLoading(false);
-      })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -122,6 +123,8 @@ function App() {
     if (!loggedIn) {
       return;
     }
+
+    setIsLoading(true);
 
     api
       .getStatistics(0, 40)
