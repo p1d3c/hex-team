@@ -13,7 +13,7 @@ import Loader from '../Loader/Loader';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [statistics, setStatistics] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [shortLinkData, setShortLinkData] = useState({
     id: '',
     short: '',
@@ -80,12 +80,11 @@ function App() {
   }
 
   function handleAddStatistics() {
-    if (!loggedIn) {
-      return;
-    }
+    setIsLoading(true);
 
     const offset = statistics.length + 1;
     const limit = 40;
+
     api
       .getStatistics(offset, limit)
       .then((res) => {
@@ -95,14 +94,23 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleSqueeze(link) {
-    api.squeeze(link).then((res) => {
-      console.log(res);
-      setShortLinkData(res);
-    });
+    api
+      .squeeze(link)
+      .then((res) => {
+        console.log(res);
+        setShortLinkData(res);
+        setStatistics([res, ...statistics]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   useEffect(() => {
@@ -118,7 +126,6 @@ function App() {
     api
       .getStatistics(0, 40)
       .then((res) => {
-        setIsLoading(true);
         setStatistics(res);
       })
       .then(() => {

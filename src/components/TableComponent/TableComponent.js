@@ -1,5 +1,5 @@
 import './TableComponent.css';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import {Table, Typography} from 'antd';
 
 function TableComponent(props) {
@@ -23,7 +23,13 @@ function TableComponent(props) {
       title: 'Короткая ссылка',
       dataIndex: 'short',
       render: (dataText) => {
-        return <Typography.Text copyable={{text: `http://79.143.31.216/s/${dataText}`}}>{dataText}</Typography.Text>;
+        return (
+          <Typography.Text copyable={{text: `http://79.143.31.216/s/${dataText}`}}>
+            <a href={`http://79.143.31.216/s/${dataText}`} target='_blank' rel='noreferrer'>
+              {dataText}
+            </a>
+          </Typography.Text>
+        );
       },
     },
     {

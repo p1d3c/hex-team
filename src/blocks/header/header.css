@@ -1,13 +1,15 @@
 .header {
-  height: 80px;
-  max-width: 918px;
-  box-sizing: border-box;
-  padding: 0 19px;
-  margin: 0 auto 25px auto;
-  padding-top: 45px;
-  border-bottom: solid 1px #545454;
   display: flex;
   justify-content: flex-end;
+  height: 80px;
+  width: 100%;
+  max-width: 918px;
+  padding: 0 19px;
+  padding-top: 45px;
+  margin: 0 auto 25px auto;
+
+  box-sizing: border-box;
+  border-bottom: solid 1px #545454;
 }
 
 @media screen and (max-width: 319px) {

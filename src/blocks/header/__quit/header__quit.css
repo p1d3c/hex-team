@@ -1,15 +1,18 @@
 .header__quit {
+  padding: 0;
   margin-top: 6px;
   margin-bottom: 6px;
+
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   text-align: right;
+  color: black;
+
   cursor: pointer;
-  transition: opacity 0.2s ease;
   border: 0;
   background-color: inherit;
-  padding: 0;
+  transition: opacity 0.2s ease;
 }
 
 .header__quit:hover {

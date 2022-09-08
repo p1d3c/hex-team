@@ -1,8 +1,8 @@
 .auth__login-btn {
   border: 0;
-  background-color: transparent;
   cursor: pointer;
   text-decoration: none;
+  background-color: transparent;
   transition: opacity 0.2s ease;
 }
 

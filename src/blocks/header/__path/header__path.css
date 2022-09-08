@@ -1,8 +1,17 @@
 .header__path {
-  height: 22px;
-  text-decoration: none;
-  color: black;
   margin-top: 6px;
+  margin-bottom: 6px;
+  padding: 0;
+
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: right;
+  color: black;
+
+  cursor: pointer;
+  border: 0;
+  background-color: inherit;
   transition: opacity 0.2s ease;
 }
 

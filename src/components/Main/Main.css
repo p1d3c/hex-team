@@ -74,31 +74,25 @@
   font-weight: 700;
 }
 
-.main__wrap {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  gap: 10px;
-  margin: 40px 10px 5px;
+.main__container {
+  height: 70px;
+  margin-top: 25px;
 }
 
-.main__list {
-  padding: 0;
-  margin: 0 auto;
-  list-style-type: none;
+.main__subtitle {
+  margin-bottom: 0;
+  font-size: 24px;
 }
 
-.main__list-title {
-  display: flex;
-  align-items: center;
+.main__result {
   margin: 0;
+  width: max-content;
 
   font-size: 18px;
-  font-weight: normal;
-}
+  font-weight: 500;
+  text-decoration: underline;
 
-.main__list-item {
-  padding: 0;
-  margin: 0 auto 10px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 920px) {

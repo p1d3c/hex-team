@@ -8,6 +8,10 @@ function Main(props) {
     link: yup.string().url('Некорректный URL').required('Обязательное поле'),
   });
 
+  function handleClick() {
+    navigator.clipboard.writeText(`http://79.143.31.216/${props.shortLinkData.short}`);
+  }
+
   return (
     <main className='main'>
       <h1 className='main__title'>Сократить ссылку</h1>
@@ -42,9 +46,11 @@ function Main(props) {
         }}
       </Formik>
 
-      <div className='main__result'>
+      <div className='main__container'>
         <h2 className='main__subtitle'>Результат:</h2>
-        <h3 className='main__container'>{props.shortLinkData.short}</h3>
+        <p className='main__result' onClick={handleClick} title='Нажмите чтобы скопировать'>
+          {!!props.shortLinkData.short && `http://79.143.31.216/${props.shortLinkData.short}`}
+        </p>
       </div>
       <TableComponent statistics={props.statistics} handleAddStatistics={props.handleAddStatistics} />
     </main>
