@@ -105,7 +105,6 @@ function App() {
     api
       .squeeze(link)
       .then((res) => {
-        console.log(res);
         setShortLinkData(res);
         setStatistics([res, ...statistics]);
       })
